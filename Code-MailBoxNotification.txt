@@ -1,0 +1,21 @@
+int led2 = D7; 
+int photoresistor = A1; 
+
+void setup() {
+  pinMode(led2, OUTPUT);
+  pinMode(photoresistor, OUTPUT);
+}
+
+void loop() {
+    int light = analogRead(photoresistor);
+      if (light < 30) {                //If the photoresistor reads a value less than 30 or when it is bright the light value is 30 t0 16 and in dark its 150 above
+      Particle.publish("Mail-Box is opened", "bright");       //Publish event "Mail-Box is opened", with data "bright"
+      String value = String(analogRead(photoresistor));           //read the photoresistor again and set value to equal this number
+       
+        
+        digitalWrite(led2, HIGH);           //turn blue LED on
+        delay(1000);                        //wait 1 second
+        digitalWrite(led2, LOW);            //turn blue LED off
+        delay(5000);                      //wait 5 seconds before trying to read the photoresistor again
+        }
+}
